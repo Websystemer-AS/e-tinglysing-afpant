@@ -19,86 +19,86 @@ Avsender-bank kan angi hvorvidt mottakende fagsystem skal returnere en avlesning
 * Avsender-bank angir i Altinn-metadata key (coverLetter) enum verdi som tilsier hvorvidt følgebrevet ligger som PDF/XML inne i ZIP eller om det sendes til megler/oppgjør på annet vis. Eventuell PDF/XML er ment til manuell behandling av oppgjørsansvarlig på lik linje med dagens papirbaserte følgebrev. 
 
 ## Altinn Formidlingstjenester manifest metadata-keys ved innsending fra banksystem til meglersystem
-  <table>
-        <tbody>
-            <tr>
-                <td><p><strong>Key</strong></p></td>
-                <td><p><strong>Type</strong></p></td>
-                <td><p><strong>Required</strong></p></td>
-                <td><p><strong>Beskrivelse</strong></p></td>
-            </tr>
-            <tr>
-                <td><p>messageType</p></td>
-                <td><p>String</p></td>
-                <td><p>Yes</p></td>
-                <td><p>Denne kan være en av følgende:</p><ul><li>SignedMortgageDeed</li></ul></td>
-            </tr>
-            <tr>
-                <td><p>notificationMode</p></td>
-                <td><p>String[] (enum[])</p></td>
-                <td><p>No</p></td>
-                <td><p>Dette serialiseres som en json array av alle notifications avsender ønsker. Følgende strenger kan være verdi i array:</p><ul><li>EmailNotificationWhenRoutedSuccessfully</li><li>EmailNotificationWhenFailed</li><li>AltinnNotification</li></ul><p>Hvis du f.eks. har «EmailNotificationWhenFailed» og «AltinnNotification» skal mottaker sende epost hvis behandling av pantedokumentet feiler og uansett sende en ack/nack gjennom Altinn.</p></td>
-            </tr>
-            <tr>
-                <td><p>senderName</p></td>
-                <td><p>String</p></td>
-                <td><p>No</p></td>
-                <td><p>Navn på avsender (mennesket)</p></td>
-            </tr>
-            <tr>
-                <td><p>senderEmail</p></td>
-                <td><p>String</p></td>
-                <td><p>No</p></td>
-                <td><p>Required hvis notificationMode EmailNotificationWhenRoutedSuccessfully eller EmailNotificationWhenFailed er angitt.<br> Email til avsender</p></td>
-            </tr>
-            <tr>
-                <td><p>senderPhone</p></td>
-                <td><p>String</p></td>
-                <td><p>No</p></td>
-                <td><p>Tlf til avsender</p></td>
-            </tr>
-            <tr>
-                <td><p>coverLetter</p></td>
-                <td><p>String[] (enum[])</p></td>
-                <td><p>Yes</p></td>
-                <td><p>Denne kan være en av følgende statuser:</p><ul><li>FileAttached</li><li>SentOutOfBand</li><li>Omitted</li></ul></td>
-            </tr>
-            <tr>
-                <td><p>payload</p></td>
-                <td><p>String</p></td>
-                <td><p>Yes</p></td>
-                <td><p>Base64-encodet streng av ZIP-arkivet.</p></td>
-            </tr>
-        </tbody>
-    </table>
+<table>
+	<tbody>
+		<tr>
+			<td><p><strong>Key</strong></p></td>
+			<td><p><strong>Type</strong></p></td>
+			<td><p><strong>Required</strong></p></td>
+			<td><p><strong>Beskrivelse</strong></p></td>
+		</tr>
+		<tr>
+			<td><p>messageType</p></td>
+			<td><p>String</p></td>
+			<td><p>Yes</p></td>
+			<td><p>Denne kan være en av følgende:</p><ul><li>SignedMortgageDeed</li></ul></td>
+		</tr>
+		<tr>
+			<td><p>notificationMode</p></td>
+			<td><p>String[] (enum[])</p></td>
+			<td><p>No</p></td>
+			<td><p>Dette serialiseres som en json array av alle notifications avsender ønsker. Følgende strenger kan være verdi i array:</p><ul><li>EmailNotificationWhenRoutedSuccessfully</li><li>EmailNotificationWhenFailed</li><li>AltinnNotification</li></ul><p>Hvis du f.eks. har «EmailNotificationWhenFailed» og «AltinnNotification» skal mottaker sende epost hvis behandling av pantedokumentet feiler og uansett sende en ack/nack gjennom Altinn.</p></td>
+		</tr>
+		<tr>
+			<td><p>senderName</p></td>
+			<td><p>String</p></td>
+			<td><p>No</p></td>
+			<td><p>Navn på avsender (mennesket)</p></td>
+		</tr>
+		<tr>
+			<td><p>senderEmail</p></td>
+			<td><p>String</p></td>
+			<td><p>No</p></td>
+			<td><p>Required hvis notificationMode EmailNotificationWhenRoutedSuccessfully eller EmailNotificationWhenFailed er angitt.<br> Email til avsender</p></td>
+		</tr>
+		<tr>
+			<td><p>senderPhone</p></td>
+			<td><p>String</p></td>
+			<td><p>No</p></td>
+			<td><p>Tlf til avsender</p></td>
+		</tr>
+		<tr>
+			<td><p>coverLetter</p></td>
+			<td><p>String[] (enum[])</p></td>
+			<td><p>Yes</p></td>
+			<td><p>Denne kan være en av følgende statuser:</p><ul><li>FileAttached</li><li>SentOutOfBand</li><li>Omitted</li></ul></td>
+		</tr>
+		<tr>
+			<td><p>payload</p></td>
+			<td><p>String</p></td>
+			<td><p>Yes</p></td>
+			<td><p>Base64-encodet streng av ZIP-arkivet.</p></td>
+		</tr>
+	</tbody>
+</table>
 
 ## Manifest metadata-keys ved retur av ACK/NACK notification fra fagsystem til bank (etter behandling av mottatt pantedokument):
-    <table>
-        <tbody>
-            <tr>
-                <td><p><strong>Key</strong></p></td>
-                <td><p><strong>Type</strong></p></td>
-                <td><p><strong>Beskrivelse</strong></p></td>
-            </tr>
-            <tr>
-                <td><p>messageType</p></td>
-                <td><p>String</p></td>
-                <td><p>Denne kan være en av følgende:</p><ul><li>SignedMortgageDeedProcessed</li></ul></td>
-            </tr>
-            <tr>
-                <td><p>altinnReceiptReference</p></td>
-                <td><p>String</p></td>
-                <td><p>Altinn kvitteringsreferanse på opprinnelig innsendt pantedokument-SDO fra bank.</p></td>
-            </tr>
-            <tr>
-                <td><p>status</p></td>
-                <td><p>String (enum)</p></td>
-                <td><p>Denne kan være en av følgende statuser:</p><ul><li>RoutedSuccessfully</li><li>UnknownCadastre</li><li>UnknownCreditor</li><li>UnknownDebitor</li><li>Rejected</li></ul></td>
-            </tr>
-            <tr>
-                <td><p>externalSystemId</p></td>
-                <td><p>String</p></td>
-                <td><p>Optional: ID/oppdragsnummer/key i eksternt meglersystem/fagsystem.</p></td>
-            </tr>
-        </tbody>
-    </table>
+<table>
+	<tbody>
+		<tr>
+			<td><p><strong>Key</strong></p></td>
+			<td><p><strong>Type</strong></p></td>
+			<td><p><strong>Beskrivelse</strong></p></td>
+		</tr>
+		<tr>
+			<td><p>messageType</p></td>
+			<td><p>String</p></td>
+			<td><p>Denne kan være en av følgende:</p><ul><li>SignedMortgageDeedProcessed</li></ul></td>
+		</tr>
+		<tr>
+			<td><p>altinnReceiptReference</p></td>
+			<td><p>String</p></td>
+			<td><p>Altinn kvitteringsreferanse på opprinnelig innsendt pantedokument-SDO fra bank.</p></td>
+		</tr>
+		<tr>
+			<td><p>status</p></td>
+			<td><p>String (enum)</p></td>
+			<td><p>Denne kan være en av følgende statuser:</p><ul><li>RoutedSuccessfully</li><li>UnknownCadastre</li><li>UnknownCreditor</li><li>UnknownDebitor</li><li>Rejected</li></ul></td>
+		</tr>
+		<tr>
+			<td><p>externalSystemId</p></td>
+			<td><p>String</p></td>
+			<td><p>Optional: ID/oppdragsnummer/key i eksternt meglersystem/fagsystem.</p></td>
+		</tr>
+	</tbody>
+</table>
