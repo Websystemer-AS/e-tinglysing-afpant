@@ -1,4 +1,23 @@
 # e-tinglysing-afpant-1.0.0
+## Altinn Formidlingstjeneste - servicedetaljer
+<table>
+	<tbody>
+		<tr>
+			<td><p><strong>Navn</strong></p></td>
+			<td><p><strong>ServiceCode</strong></p></td>
+			<td><p><strong>ServiceEditionCode</strong></p></td>
+		</tr>
+		<tr>
+			<td><p>AFPANT</p></td>
+			<td><p>4752</p></td>
+			<td><p>1</p></td>
+		</tr>
+		
+	</tbody>
+</table>
+
+**NB**: Kartverket må legge til rettigheter (READ+WRITE) for alle organisasjoner som skal kunne sende og motta filer via denne tjenesten. Slike bestillinger må gjøres via Kartverket JIRA.
+
 ## Sammendrag
 Bruker i avsender-bank må innhente hvilket organisasjonsnummer forsendelsen skal til (dette hentes normalt sett ut fra signert kopi av kjøpekontrakt, og er enten organisasjonsnummeret til eiendomsmeglerforetaket eller oppgjørsforetaket).
 
