@@ -8,16 +8,22 @@
 			<td><p><strong>ServiceEditionCode</strong></p></td>
 		</tr>
 		<tr>
-			<td><p>AFPANT</p></td>
+			<td><p>AFPANT (Altinn Test TT02)</p></td>
 			<td><p>4752</p></td>
 			<td><p>1</p></td>
 		</tr>
-		
+		<tr>
+			<td><p>AFPANT (Altinn Prod)</p></td>
+			<td><p>--</p></td>
+			<td><p>--</p></td>
+		</tr>				
 	</tbody>
 </table>
 
 **NB**: Kartverket må legge til rettigheter (READ+WRITE) for alle organisasjoner som skal kunne sende og motta filer via denne tjenesten. Slike bestillinger må gjøres via Kartverket JIRA.
 
+**NB 2**: Organisasjoner som skal utføre sending/mottak på vegne av *andre organisasjoner* (systemleverandører/datasentraler) behøver kun registrere seg selv hos Kartverket, og skal bruke sitt eget organisasjonsnummer som "reportee" mot Altinn. Systemleverandører/datasentraler som opererer på vegne av andre må også hente meldinger for sitt *eget organisasjonsnummer* (for det er dit ACK/NACK meldinger fra mottakersystem sendes). 
+ 
 ## Sammendrag
 Bruker i avsender-bank må innhente hvilket organisasjonsnummer forsendelsen skal til (dette hentes normalt sett ut fra signert kopi av kjøpekontrakt, og er enten organisasjonsnummeret til eiendomsmeglerforetaket eller oppgjørsforetaket).
 
