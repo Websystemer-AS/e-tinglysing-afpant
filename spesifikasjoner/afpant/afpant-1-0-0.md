@@ -28,11 +28,11 @@
 Bruker i avsender-bank må innhente hvilket organisasjonsnummer forsendelsen skal til (dette hentes normalt sett ut fra signert kopi av kjøpekontrakt, og er enten organisasjonsnummeret til eiendomsmeglerforetaket eller oppgjørsforetaket).
 
 Deretter produseres det et **ZIP**-arkiv som inneholder:
-* Kjøpers pantedokument SDO (1 eller flere filer)
+* Kjøpers pantedokument SDO (kun 1 pantedokument pr forsendelse)
 * Eventuelt følgebrev (PDF/XML) (med forutsetninger for oversendelse av pantedokument, evt innbetalingsinformasjon)
 * Dersom følgebrev produseres som XML må dokumentet validere i henhold til afpant-folgebrev XSD. 
 
-**NB**: Overførsel av mer enn 1 pantedokument-SDO i samme forsendelse skal normalt sett benyttes for å kunne tinglyse separate pant på hver av hjemmelshavere (men på samme matrikkelenhet). For eksempel i tilfeller hvor det er to debitorer (låntakere) som ikke er ektefeller/samboere/registrerte partnere.
+**NB**: Dersom mer enn 1 pantedokument fra samme lånesak skal tinglyses på samme matrikkelenhet må dette sendes som to separate forsendelser. For eksempel i tilfeller hvor det er to debitorer (låntakere) som ikke er ektefeller/samboere/registrerte partnere som skal ha likestilt prioritet, men separate pantedokumenter.
 
 Avsender-bank angir metadata-keys på Altinn-forsendelse (i manifestet) som indikerer om avsender-bank ønsker avlesingskvittering (maskinell og/eller pr email), og hvorvidt følgebrevet er inkludert i ZIP eller om det sendes out-of-band (f.eks via fax eller mail direkte til megler/oppgjør).
 Mottaker (systemleverandør) pakker ut ZIP og parser SDO for å trekke ut nøkkeldata (kreditor, debitor(er), matrikkelenhet(er)) som brukes for å rute forsendelsen til korrekt oppdrag hos korrekt megler/oppgjørsforetak.

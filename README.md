@@ -22,7 +22,7 @@ Websystemer AS | Megler
 Nordea Bank AB (publ), filial i Norge | Bank
 
 #### AFPANT-løsningen muliggjør følgende:
-* Overføring av 1 eller flere e-signerte pantedokument (SDO) fra kjøpers bank til eiendomsmegler/oppgjørsforetak 
+* Overføring av 1 e-signert pantedokument (SDO) fra kjøpers bank til eiendomsmegler/oppgjørsforetak 
 * Overføring av følgebrev som PDF eller XML 
 * ACK/NACK-kvittering fra mottakersystem til avsendersystem med informasjon om forsendelsen kunne rutes korrekt
 
