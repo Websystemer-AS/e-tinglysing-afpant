@@ -18,9 +18,9 @@ namespace AFPANT
 
         public Overfoersel OverfoerselDetaljer { get; set; }
 
-        public List<String> Forutsetninger {get;set; }
+        public List<String> Forutsetninger { get; set; }
 
-        public string AnneFritekst { get; set; }
+        public string AnnenFritekst { get; set; }
 
         public Adresse ReturneresTil { get; set; }
 
