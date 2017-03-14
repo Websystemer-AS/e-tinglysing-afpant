@@ -8,7 +8,7 @@ namespace AFPANT
 {
     public class Folgebrev
     {
-        public List<RettighetsHaver> Kreditorer { get; set; }
+        public RettighetsHaver Kreditor { get; set; }
 
         public List<RettighetsHaver> Debitorer { get; set; }
 
@@ -22,7 +22,9 @@ namespace AFPANT
 
         public string AnneFritekst { get; set; }
 
-        public Adresse ReturAdresse { get; set; }
+        public Adresse ReturneresTil { get; set; }
+
+        public Person Avsender { get; set; }
 
         public class Overfoersel
         {
@@ -62,6 +64,14 @@ namespace AFPANT
         {
             public double Beloep { get; set; }
             public int Prioritet { get; set; }
+        }
+
+        public class Person
+        {
+            public string Navn { get; set; }
+            public string Email { get; set; }
+            public string TelefonDirekte { get; set; }
+            public string Telefon { get; set; }
         }
     }
 }
