@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 
 namespace AFPANT
 {
@@ -18,7 +14,7 @@ namespace AFPANT
 
         public Overfoersel OverfoerselDetaljer { get; set; }
 
-        public List<String> Forutsetninger { get; set; }
+        public List<string> Forutsetninger { get; set; }
 
         public string AnnenFritekst { get; set; }
 
@@ -45,6 +41,7 @@ namespace AFPANT
             public string Seksjonsnummer { get; set; }
             public string Organisasjonsnummer { get; set; }
             public string Andelsnummer { get; set; }
+			public string BorettslagNavn { get; set; }
         }
 
         public class RettighetsHaver
@@ -56,6 +53,7 @@ namespace AFPANT
         public class Adresse
         {
             public string Navn { get; set; }
+			public string Adresse { get; set; }
             public string Postnummer { get; set; }
             public string Poststed { get; set; }
         }
@@ -64,6 +62,8 @@ namespace AFPANT
         {
             public double Beloep { get; set; }
             public int Prioritet { get; set; }
+            public string PrioritetsBeskrivelse { get; set; } // tekstlig representasjon av forventet prioritet (1. pri, likestilt med, viker for kreditor xxx)
+			//todo: strukturert informasjon om hvem man viker for eller er likestilt med
         }
 
         public class Person
