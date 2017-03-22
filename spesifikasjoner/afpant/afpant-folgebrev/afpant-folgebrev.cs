@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 namespace AFPANT
 {
@@ -18,8 +19,9 @@ namespace AFPANT
 
         public string AnnenFritekst { get; set; }
 
-        public Adresse ReturneresTil { get; set; }
-
+		// Bekreftet grunnboksutskrift returneres pr post etter at selgers kreditor har slettet sitt pant. Sendes på papir i påvente av ytterligere standardiseringsarbeid / felles kommunikasjonsplattform megler -> bank
+        public Adresse ReturneresTil { get; set; } 
+		
         public Person Avsender { get; set; }
 
         public class Overfoersel
@@ -30,10 +32,12 @@ namespace AFPANT
             public string KreditorSaksnummer { get; set; }
             public string MeglerSaksnummer { get; set; }
             public string BeloepGjelder { get; set; }
+            public string ProdusertDato { get; set;  }
         }
 
         public class MatrikkelEnhet
         {
+            public string KommuneNavn { get; set; }
             public string Kommunenummer { get; set; }
             public string Gardsnummer { get; set; }
             public string Bruksnummer { get; set; }
@@ -42,6 +46,7 @@ namespace AFPANT
             public string Organisasjonsnummer { get; set; }
             public string Andelsnummer { get; set; }
 			public string BorettslagNavn { get; set; }
+            public string Adresse { get; set; }
         }
 
         public class RettighetsHaver
@@ -53,7 +58,7 @@ namespace AFPANT
         public class Adresse
         {
             public string Navn { get; set; }
-			public string Adresse { get; set; }
+			public string Postadresse { get; set; }
             public string Postnummer { get; set; }
             public string Poststed { get; set; }
         }
@@ -62,7 +67,8 @@ namespace AFPANT
         {
             public double Beloep { get; set; }
             public int Prioritet { get; set; }
-            public string PrioritetsBeskrivelse { get; set; } // tekstlig representasjon av forventet prioritet (1. pri, likestilt med, viker for kreditor xxx)
+			// tekstlig representasjon av forventet prioritet (1. pri, likestilt med, viker for kreditor xxx)
+            public string PrioritetsBeskrivelse { get; set; } 
 			//todo: strukturert informasjon om hvem man viker for eller er likestilt med
         }
 
