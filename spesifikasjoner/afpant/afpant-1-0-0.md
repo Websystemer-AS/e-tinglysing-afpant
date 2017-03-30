@@ -20,22 +20,43 @@
 	</tbody>
 </table>
 
-**NB**: Kartverket må legge til rettigheter (READ+WRITE) for alle organisasjoner som skal kunne sende og motta filer via denne tjenesten. Slike bestillinger må gjøres via Kartverket JIRA.
+**NB**: Kartverket må legge til rettigheter (READ+WRITE) for alle systemleverandører/datasentraler som skal koble seg direkte til denne tjenesten. Slike bestillinger må gjøres via Kartverket JIRA (http://jira.statkart.no:8080/).
 
-**NB 2**: Organisasjoner som skal utføre sending/mottak på vegne av *andre organisasjoner* (systemleverandører/datasentraler) behøver kun registrere seg selv hos Kartverket, og skal bruke sitt eget organisasjonsnummer som "reportee" mot Altinn. Systemleverandører/datasentraler som opererer på vegne av andre må også hente meldinger for sitt *eget organisasjonsnummer* (for det er dit ACK/NACK meldinger fra mottakersystem sendes). 
+**NB 2**: Systemleverandører/datasentraler som skal utføre sending/mottak på vegne av *andre organisasjoner* (eks meglerforetak/bank) må registrere seg selv hos Kartverket, og skal bruke sitt eget organisasjonsnummer som "reportee" mot Altinn. Systemleverandører/datasentraler som opererer på vegne av andre må også hente meldinger for sitt *eget organisasjonsnummer* (for det er dit ACK/NACK meldinger fra mottakersystem sendes). 
+*Hver organisasjon* som en systemleverandør/datasentral opererer på vegne av (eks meglerforetak/bank) må logge på Altinn for å delegere rettigheter til sin systemleverandør/datasentral sin Altinn-systembruker for tjenesten AFPANT (READ+WRITE for AFPANT).
+
  
 ## Sammendrag
 Bruker i avsender-bank må innhente hvilket organisasjonsnummer forsendelsen skal til (dette hentes normalt sett ut fra signert kopi av kjøpekontrakt, og er enten organisasjonsnummeret til eiendomsmeglerforetaket eller oppgjørsforetaket).
 
-Deretter produseres det et **ZIP**-arkiv som inneholder:
+Deretter produseres det et **ZIP**-arkiv som inneholder følgende filer:
 * Kjøpers pantedokument SDO (kun 1 pantedokument pr forsendelse)
 * Eventuelt følgebrev (PDF/XML) (med forutsetninger for oversendelse av pantedokument, evt innbetalingsinformasjon)
-* Dersom følgebrev produseres som XML må dokumentet validere i henhold til afpant-folgebrev XSD. 
+* Dersom følgebrev produseres som XML må dokumentet validere i henhold til afpant-folgebrev XSD (og URI til afpant-folgbrev XSD og XSLT må være inkludert i XML). 
 
 **NB**: Dersom mer enn 1 pantedokument fra samme lånesak skal tinglyses på samme matrikkelenhet må dette sendes som to separate forsendelser. For eksempel i tilfeller hvor det er to debitorer (låntakere) som ikke er ektefeller/samboere/registrerte partnere som skal ha likestilt prioritet, men separate pantedokumenter.
 
 Avsender-bank angir metadata-keys på Altinn-forsendelse (i manifestet) som indikerer om avsender-bank ønsker avlesingskvittering (maskinell og/eller pr email), og hvorvidt følgebrevet er inkludert i ZIP eller om det sendes out-of-band (f.eks via fax eller mail direkte til megler/oppgjør).
 Mottaker (systemleverandør) pakker ut ZIP og parser SDO for å trekke ut nøkkeldata (kreditor, debitor(er), matrikkelenhet(er)) som brukes for å rute forsendelsen til korrekt oppdrag hos korrekt megler/oppgjørsforetak.
+
+## Validering og ruting hos mottakende system
+Hver enkelt systemleverandør som skal behandle forsendelser via AFPANT vil forsøke rute forsendelsen til korrekt meglersak/oppdrag i sine egne kundedatabaser.
+For å rute forsendelsen blir pantedokumentet pakket ut fra SDO, og matrikkelenheter/debitorer ekstraheres.
+
+### Krav til filnavn i ZIP-arkiv
+- Eventuelt følgebrev må følge konvensjonen: "coverletter_*.[pdf|xml]"
+- Pantedokumentet må følge konvensjonen: "signedmortgagedeed_*.sdo"
+Wildcard "*" kan erstattes med en vilkårlig streng (må være et gyldig filnavn), f.eks lånesaksnummer eller annen relevant referanse for avsender.
+
+### Implementasjonsbeskrivelse: ruting
+- mottakende systemleverandør søker blant alle sine kunders matrikkelenhet(er)
+- utvalget avgrenses til matrikkelenheter som tilhører meglersaker hvor organisasjonsnummeret til _enten_ meglerforetaket eller oppgjørsforetaket på meglersaken er lik organisasjonsnummeret pantedokumentet er sendt til
+- utvalget avgrenses til meglersaker hvor **alle debitorene i pantedokumentet også er registrert som kjøpere på meglersaken** (hvis det mangler fødselsnummer/orgnummer på kjøper(e) kan leverandør selv velge graden av fuzzy matching som skal tillates) 
+- dersom det er registrert flere kjøpere på meglersaken enn det finnes debitorer/signaturer i pantedokumentet skal mottakende system avvise forsendelsen med en SignedMortgageDeedProcessedMessage (NACK) hvor status = DebitorMismatch.
+
+### Håndtering av feil
+- Den første feilen som oppstår stopper videre behandling av forsendelsen.
+- SignedMortgageDeedProcessedMessage (NACK) returneres og vil ha utfyllende beskrivelse i property statusDescription.
 
 ## Avlesningskvittering
 Avsender-bank kan angi hvorvidt mottakende fagsystem skal returnere en avlesningskvittering, og man kan velge følgende metoder:
@@ -62,7 +83,7 @@ Avsender-bank kan angi hvorvidt mottakende fagsystem skal returnere en avlesning
 			<td><p>notificationMode</p></td>
 			<td><p>String[] (enum[])</p></td>
 			<td><p>No</p></td>
-			<td><p>Dette serialiseres som en json array av alle notifications avsender ønsker. Følgende strenger kan være verdi i array:</p><ul><li>EmailNotificationWhenRoutedSuccessfully</li><li>EmailNotificationWhenFailed</li><li>AltinnNotification</li></ul><p>Hvis du f.eks. har «EmailNotificationWhenFailed» og «AltinnNotification» skal mottaker sende epost hvis behandling av pantedokumentet feiler og uansett sende en ack/nack gjennom Altinn.</p></td>
+			<td><p>Kommaseparert liste over alle notifications avsender ønsker. Følgende strenger kan være verdi i array:</p><ul><li>EmailNotificationWhenRoutedSuccessfully</li><li>EmailNotificationWhenFailed</li><li>AltinnNotification</li></ul><p>Hvis du f.eks. har «EmailNotificationWhenFailed» og «AltinnNotification» skal mottaker sende epost hvis behandling av pantedokumentet feiler og uansett sende en ack/nack gjennom Altinn.</p></td>
 		</tr>
 		<tr>
 			<td><p>senderName</p></td>
@@ -111,14 +132,35 @@ Avsender-bank kan angi hvorvidt mottakende fagsystem skal returnere en avlesning
 			<td><p>Denne kan være en av følgende:</p><ul><li>SignedMortgageDeedProcessed</li></ul></td>
 		</tr>
 		<tr>
-			<td><p>altinnReceiptReference</p></td>
+			<td><p>payload</p></td>
 			<td><p>String</p></td>
-			<td><p>Altinn kvitteringsreferanse på opprinnelig innsendt pantedokument-SDO fra bank.</p></td>
+			<td><p>Base64-encodet streng av SignedMortgageDeedProcessedMessage-objektet (serialisert som XML).</p></td>
+		</tr>
+	</tbody>
+</table>
+
+## SignedMortgageDeedProcessedMessage objekt
+<table>
+	<tbody>
+		<tr>
+			<td><p><strong>Key</strong></p></td>
+			<td><p><strong>Type</strong></p></td>
+			<td><p><strong>Beskrivelse</strong></p></td>
+		</tr>
+		<tr>
+			<td><p>messageType</p></td>
+			<td><p>String</p></td>
+			<td><p>Denne kan være en av følgende:</p><ul><li>SignedMortgageDeedProcessed</li></ul></td>
 		</tr>
 		<tr>
 			<td><p>status</p></td>
 			<td><p>String (enum)</p></td>
-			<td><p>Denne kan være en av følgende statuser:</p><ul><li>RoutedSuccessfully</li><li>UnknownCadastre</li><li>UnknownCreditor</li><li>UnknownDebitor</li><li>Rejected</li></ul></td>
+			<td><p>Denne kan være en av følgende statuser:</p><ul><li>RoutedSuccessfully</li><li>UnknownCadastre (ukjent matrikkelenhet)</li><li>DebitorMismatch (fant matrikkelenhet, men antall kjøpere eller navn/id på kjøpere matcher ikke debitorer i pantedokumentet)</li><li>Rejected (sendt til et organisasjonsnummer som ikke lenger har et aktivt kundeforhold hos leverandøren - feil config i Altinn AFPANT)</li></ul></td>
+		</tr>
+		<tr>
+			<td><p>statusDescription</p></td>
+			<td><p>String</p></td>
+			<td><p>Inneholder en utfyllende human-readable beskrivelse om hvorfor en forsendelse ble NACK'et.</td>
 		</tr>
 		<tr>
 			<td><p>externalSystemId</p></td>
