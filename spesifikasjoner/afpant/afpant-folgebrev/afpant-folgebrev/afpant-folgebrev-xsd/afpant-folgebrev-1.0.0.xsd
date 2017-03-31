@@ -1,0 +1,212 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema elementFormDefault="qualified" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:element name="Folgebrev" nillable="true" type="Folgebrev" />
+  <xs:complexType name="Folgebrev">
+    <xs:annotation>
+        <xs:documentation>Denne klassen skal benyttes for å produsere et strukturert overførselsbrev/følgebrev fra kreditor (bank) til eiendomsmegler / oppgjørsforetak. 
+Følgebrevet skal alltid sendes sammen med ett pantedokument, og det må inneholde informasjon om pantedokumentet som overføres, forventet prioritet, forutsetninger for overførselen, samt beløp som overføres.
+Informasjon om innbetalingen (beløp, totalbeløp, mottakerkontonummer og kid) benyttes av mottaker til blant annet etterlevelse av hvitvaskingsreglement.</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element minOccurs="1" maxOccurs="1" name="Kreditor" type="RettighetsHaver">
+          <xs:annotation>
+              <xs:documentation>Documentation goes here</xs:documentation>
+          </xs:annotation>
+      </xs:element>
+      <xs:element minOccurs="1" maxOccurs="1" name="Debitorer" type="ArrayOfRettighetsHaver" />
+      <xs:element minOccurs="1" maxOccurs="1" name="MatrikkelEnheter" type="ArrayOfMatrikkelEnhet" />
+      <xs:element minOccurs="1" maxOccurs="1" name="PantedokumentDetaljer" type="Pantedokument" />
+      <xs:element minOccurs="1" maxOccurs="1" name="OverfoerselDetaljer" type="Overfoersel" />
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="Forutsetninger" type="ArrayOfString">
+          <xs:annotation>
+              <xs:documentation>Forutsetningene pantedokumentet og/eller innbetalingen overføres under.</xs:documentation>
+          </xs:annotation>
+      </xs:element>
+      <xs:element minOccurs="0" maxOccurs="1" name="AnnenFritekst" type="xs:string">
+          <xs:annotation>
+              <xs:documentation>Kan brukes for å angi instruks om forventet tid før retur, evt melding om avvikende behandlingstid.</xs:documentation>
+          </xs:annotation>
+      </xs:element>
+      <xs:element minOccurs="1" maxOccurs="1" name="ReturneresTil" type="Adresse">
+          <xs:annotation>
+              <xs:documentation>Bekreftet grunnboksutskrift returneres etter at selgers kreditor har slettet sitt pant.
+Den sendes på papir i påvente av ytterligere standardiseringsarbeid / felles kommunikasjonsplattform megler -> bank</xs:documentation>
+          </xs:annotation>
+      </xs:element>
+      <xs:element minOccurs="1" maxOccurs="1" name="Avsender" type="Person">
+          <xs:annotation>
+              <xs:documentation>Saksbehandler i bank/depot. Kontaktinformasjon er viktig for mottaker (oppgjørsmedarbeider) i tilfelle prioritetskollisjon eller andre mangler i oversendt pantedokument må avklares.</xs:documentation>
+          </xs:annotation>
+      </xs:element>
+      <xs:element minOccurs="1" maxOccurs="1" name="Mottaker" type="JuridiskPerson" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="RettighetsHaver">
+    <xs:annotation>
+        <xs:documentation>Kan brukes for å beskrive en rettighetshaver som enten er en privatperson med fødselsnummer, eller en organisasjon med organisasjonsnummer.</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="1" name="Nummer" type="xs:string"/>
+      <xs:element minOccurs="0" maxOccurs="1" name="Navn" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="ArrayOfRettighetsHaver">
+    <xs:sequence>
+      <xs:element minOccurs="1" maxOccurs="unbounded" name="RettighetsHaver" nillable="true" type="RettighetsHaver" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="ArrayOfMatrikkelEnhet">
+    <xs:sequence>
+      <xs:element minOccurs="1" maxOccurs="unbounded" name="MatrikkelEnhet" nillable="true" type="MatrikkelEnhet" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="MatrikkelEnhet">
+    <xs:annotation>
+        <xs:documentation>Representerer enten fast eiendom (inkl feste eller seksjonsnummer) eller en borettsandel. </xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="1" name="KommuneNavn" type="xs:string" />
+      <xs:element minOccurs="0" maxOccurs="1" name="Kommunenummer" type="xs:string" />
+      <xs:element minOccurs="0" maxOccurs="1" name="Gardsnummer" type="xs:string" />
+      <xs:element minOccurs="0" maxOccurs="1" name="Bruksnummer" type="xs:string" />
+      <xs:element minOccurs="0" maxOccurs="1" name="Festenummer" type="xs:string" default="0">
+          <xs:annotation>
+              <xs:documentation>Angi "0" dersom fast eiendom og feste ikke er relevant</xs:documentation>
+          </xs:annotation>
+      </xs:element>
+      <xs:element minOccurs="0" maxOccurs="1" name="Seksjonsnummer" type="xs:string" default="0">
+          <xs:annotation>
+              <xs:documentation>Angi "0" dersom useksjonert fast eiendom</xs:documentation>
+          </xs:annotation>
+      </xs:element>
+      <xs:element minOccurs="0" maxOccurs="1" name="Organisasjonsnummer" type="xs:string">
+          <xs:annotation>
+              <xs:documentation>Borettslagets organisasjonsnummer</xs:documentation>
+          </xs:annotation>
+      </xs:element>
+      <xs:element minOccurs="0" maxOccurs="1" name="Andelsnummer" type="xs:string" />
+      <xs:element minOccurs="0" maxOccurs="1" name="BorettslagNavn" type="xs:string">
+          <xs:annotation>
+              <xs:documentation>Angi navn på borettslaget dersom dette er tilgjengelig</xs:documentation>
+          </xs:annotation>
+      </xs:element>
+      <xs:element minOccurs="0" maxOccurs="1" name="Adresse" type="xs:string">
+          <xs:annotation>
+              <xs:documentation>Angi eiendommens gateadresse dersom dette er tilgjengelig</xs:documentation>
+          </xs:annotation>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="Pantedokument">
+    <xs:sequence>
+      <xs:element minOccurs="1" maxOccurs="1" name="Beloep" type="xs:double">
+          <xs:annotation>
+              <xs:documentation>Pålydende beløp på pantedokumentet som overføres</xs:documentation>
+          </xs:annotation>
+      </xs:element>
+      <xs:element minOccurs="1" maxOccurs="1" name="ForstePrioritet" type="xs:boolean">
+          <xs:annotation>
+              <xs:documentation>Angi som true dersom man skal ha første prioritet. XSLT vil i så fall ignorere eventuelt innhold i Pantedokument.Prioritet-listen.</xs:documentation>
+          </xs:annotation>
+      </xs:element>
+      <xs:element minOccurs="0" maxOccurs="1" name="Prioritet" type="ArrayOfPrioritetsAngivelse">
+          <xs:annotation>
+              <xs:documentation>Angi ett item for hvert av pantene det skal vikes for eller sidestilles med.</xs:documentation>
+          </xs:annotation>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="ArrayOfPrioritetsAngivelse">
+    <xs:sequence>
+      <xs:element minOccurs="1" maxOccurs="unbounded" name="PrioritetsAngivelse" nillable="true" type="PrioritetsAngivelse" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="PrioritetsAngivelse">
+    <xs:annotation>
+        <xs:documentation>Angir detaljer om et annet pant som påvirker prioriteten.</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element minOccurs="1" maxOccurs="1" name="Rekkefolge" type="PrioritetsRekkefolge" />
+      <xs:element minOccurs="1" maxOccurs="1" name="Panthaver" type="RettighetsHaver">
+          <xs:annotation>
+              <xs:documentation>Panthaver kan være enten privatperson eller organisasjon.</xs:documentation>
+          </xs:annotation>
+      </xs:element>
+      <xs:element minOccurs="1" maxOccurs="1" name="Beloep" type="xs:double" />
+      <xs:element minOccurs="0" maxOccurs="1" name="PrioritetsBeskrivelse" type="xs:string" nillable="true">
+          <xs:annotation>
+              <xs:documentation>Tekstlig representasjon av forventet prioritet (1. pri, likestilt med, viker for kreditor xxx)</xs:documentation>
+          </xs:annotation>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:simpleType name="PrioritetsRekkefolge">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="PrioritetEtter" />
+      <xs:enumeration value="PrioritetLikestiltMed" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:complexType name="Overfoersel">
+    <xs:sequence>
+      <xs:element minOccurs="1" maxOccurs="1" name="Beloep" type="xs:double">
+          <xs:annotation>
+              <xs:documentation>Beløpet som overføres sammen med pantedokumentet (kan være mindre enn totalbeløpet)</xs:documentation>
+          </xs:annotation>
+      </xs:element>
+      <xs:element minOccurs="1" maxOccurs="1" name="TotalBeloep" type="xs:double">
+          <xs:annotation>
+              <xs:documentation>Totalt beløp som skal innbetales i henhold til kjøpekontrakt</xs:documentation>
+          </xs:annotation>
+      </xs:element>
+      <xs:element minOccurs="1" maxOccurs="1" name="TilKontonummer" type="xs:string" />
+      <xs:element minOccurs="0" maxOccurs="1" name="KID" type="xs:string" />
+      <xs:element minOccurs="0" maxOccurs="1" name="KreditorSaksnummer" type="xs:string">
+          <xs:annotation>
+              <xs:documentation>Kan angi f.eks lånesaksnummer eller referanse i (bank)fagsystem</xs:documentation>
+          </xs:annotation>
+      </xs:element>
+      <xs:element minOccurs="0" maxOccurs="1" name="MeglerSaksnummer" type="xs:string">
+          <xs:annotation>
+              <xs:documentation>Kan angi meglers oppdragsnummer dersom dette er tilgjengelig</xs:documentation>
+          </xs:annotation>
+      </xs:element>
+      <xs:element minOccurs="0" maxOccurs="1" name="BeloepGjelder" type="xs:string">
+          <xs:annotation>
+              <xs:documentation>En tekstlig beskrivelse av hva det overførte beløpet skal dekke</xs:documentation>
+          </xs:annotation>
+      </xs:element>
+      <xs:element minOccurs="1" maxOccurs="1" name="ProdusertDato" type="xs:dateTime">
+          <xs:annotation>
+              <xs:documentation>En timestamp som indikerer når følgebrevet ble produsert/overført</xs:documentation>
+          </xs:annotation>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="ArrayOfString">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="string" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="Adresse">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="1" name="Navn" type="xs:string" />
+      <xs:element minOccurs="0" maxOccurs="1" name="Postadresse" type="xs:string" />
+      <xs:element minOccurs="0" maxOccurs="1" name="Postnummer" type="xs:string" />
+      <xs:element minOccurs="0" maxOccurs="1" name="Poststed" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="Person">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="1" name="Navn" type="xs:string" />
+      <xs:element minOccurs="0" maxOccurs="1" name="Email" type="xs:string" />
+      <xs:element minOccurs="0" maxOccurs="1" name="TelefonDirekte" type="xs:string" />
+      <xs:element minOccurs="0" maxOccurs="1" name="Telefon" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="JuridiskPerson">
+    <xs:sequence>
+      <xs:element minOccurs="1" maxOccurs="1" name="Navn" type="xs:string" />
+      <xs:element minOccurs="1" maxOccurs="1" name="Organisasjonsnummer" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+</xs:schema>

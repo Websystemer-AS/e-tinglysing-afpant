@@ -105,7 +105,7 @@ Avsender-bank kan angi hvorvidt mottakende fagsystem skal returnere en avlesning
 		</tr>
 		<tr>
 			<td><p>coverLetter</p></td>
-			<td><p>String[] (enum[])</p></td>
+			<td><p>String (enum)</p></td>
 			<td><p>Yes</p></td>
 			<td><p>Denne kan være en av følgende statuser:</p><ul><li>FileAttached</li><li>SentOutOfBand</li><li>Omitted</li></ul></td>
 		</tr>
@@ -155,7 +155,7 @@ Avsender-bank kan angi hvorvidt mottakende fagsystem skal returnere en avlesning
 		<tr>
 			<td><p>status</p></td>
 			<td><p>String (enum)</p></td>
-			<td><p>Denne kan være en av følgende statuser:</p><ul><li>RoutedSuccessfully</li><li>UnknownCadastre (ukjent matrikkelenhet)</li><li>DebitorMismatch (fant matrikkelenhet, men antall kjøpere eller navn/id på kjøpere matcher ikke debitorer i pantedokumentet)</li><li>Rejected (sendt til et organisasjonsnummer som ikke lenger har et aktivt kundeforhold hos leverandøren - feil config i Altinn AFPANT)</li></ul></td>
+			<td><p>Denne kan være en av følgende statuser:</p><ul><li>RoutedSuccessfully</li><li>UnknownCadastre (ukjent matrikkelenhet)</li><li>DebitorMismatch (fant matrikkelenhet, men antall kjøpere eller navn/id på kjøpere matcher ikke debitorer i pantedokumentet)</li><li>Rejected (sendt til et organisasjonsnummer som ikke lenger har et aktivt kundeforhold hos leverandøren - feil config i Altinn AFPANT, eller ugyldig forsendelse)</li></ul></td>
 		</tr>
 		<tr>
 			<td><p>statusDescription</p></td>
