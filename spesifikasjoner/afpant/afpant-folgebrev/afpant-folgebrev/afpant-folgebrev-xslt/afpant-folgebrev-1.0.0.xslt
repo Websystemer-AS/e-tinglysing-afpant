@@ -287,7 +287,7 @@
         </section>
         <footer>
           <small>
-            AFPANT-folgebrev: <xsl:value-of select="@xsi:noNamespaceSchemaLocation"/> / xslt $xslt-version | Følgebrevet ble produsert <xsl:value-of select="OverfoerselDetaljer/ProdusertDato"/>
+            AFPANT-folgebrev: <xsl:value-of select="@xsi:noNamespaceSchemaLocation"/> / xslt 1.0.0 | Følgebrevet ble produsert <xsl:value-of select="OverfoerselDetaljer/ProdusertDato"/>
           </small>
         </footer>
       </body>

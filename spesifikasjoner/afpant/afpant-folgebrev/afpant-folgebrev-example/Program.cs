@@ -119,11 +119,11 @@ Eller at forutsetning C, og så videre."
 
                 // append XSD reference
                 var xsdAttribute = xmlDoc.CreateAttribute("xsi", "noNamespaceSchemaLocation", "http://www.w3.org/2001/XMLSchema-instance");
-                xsdAttribute.Value = "https://last-opp.pantedokumentet.no/AFPANT/afpant-folgebrev-1.0.0.xsd";
+                xsdAttribute.Value = "http://last-opp.pantedokumentet.no/AFPANT/afpant-folgebrev-1.0.0.xsd";
                 xmlDoc.DocumentElement.Attributes.Append(xsdAttribute);
 
                 // append XSLT reference
-                var xsltUri = "https://last-opp.pantedokumentet.no/AFPANT/afpant-folgebrev-xslt-1.0.xslt"; // note - versioned to major.minor (enables releasing revisions without needting to modify existing xml documents)
+                var xsltUri = "http://last-opp.pantedokumentet.no/AFPANT/afpant-folgebrev-1.0.xslt"; // note - versioned to major.minor (enables releasing revisions without needting to modify existing xml documents)
                 var xsltProcessingInstruction = xmlDoc.CreateProcessingInstruction("xml-stylesheet", $"type=\"text/xsl\" href=\"{xsltUri}\"");
                 xmlDoc.InsertAfter(xsltProcessingInstruction, xmlDoc.FirstChild);
 
