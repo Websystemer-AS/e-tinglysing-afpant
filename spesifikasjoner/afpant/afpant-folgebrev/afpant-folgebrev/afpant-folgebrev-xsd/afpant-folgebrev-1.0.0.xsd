@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <xs:schema elementFormDefault="qualified" xmlns:xs="http://www.w3.org/2001/XMLSchema">
-  <xs:element name="Folgebrev" nillable="true" type="Folgebrev" />
+  <xs:element name="Folgebrev" nillable="false" type="Folgebrev"/>
   <xs:complexType name="Folgebrev">
     <xs:annotation>
         <xs:documentation>Denne klassen skal benyttes for å produsere et strukturert overførselsbrev/følgebrev fra kreditor (bank) til eiendomsmegler / oppgjørsforetak. 
