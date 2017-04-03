@@ -32,7 +32,7 @@ Bruker i avsender-bank må innhente hvilket organisasjonsnummer forsendelsen skal
 Deretter produseres det et **ZIP**-arkiv som inneholder følgende filer:
 * Kjøpers pantedokument SDO (kun 1 pantedokument pr forsendelse)
 * Eventuelt følgebrev (PDF/XML) (med forutsetninger for oversendelse av pantedokument, evt innbetalingsinformasjon)
-* Dersom følgebrev produseres som XML må dokumentet validere i henhold til afpant-folgebrev XSD (og URI til afpant-folgbrev XSD og XSLT må være inkludert i XML). 
+* Dersom følgebrev produseres som XML må dokumentet validere i henhold til <a href="https://github.com/Websystemer-AS/e-tinglysing-afpant/blob/master/spesifikasjoner/afpant/afpant-folgebrev/afpant-folgebrev-1-0-0.md">afpant-folgebrev spesifikasjon</a>.
 
 **NB**: Dersom mer enn 1 pantedokument fra samme lånesak skal tinglyses på samme matrikkelenhet må dette sendes som to separate forsendelser. For eksempel i tilfeller hvor det er to debitorer (låntakere) som ikke er ektefeller/samboere/registrerte partnere som skal ha likestilt prioritet, men separate pantedokumenter.
 
@@ -44,9 +44,9 @@ Hver enkelt systemleverandør som skal behandle forsendelser via AFPANT vil forsø
 For å rute forsendelsen blir pantedokumentet pakket ut fra SDO, og matrikkelenheter/debitorer ekstraheres.
 
 ### Krav til filnavn i ZIP-arkiv
-- Eventuelt følgebrev må følge konvensjonen: "coverletter_*.[pdf|xml]"
-- Pantedokumentet må følge konvensjonen: "signedmortgagedeed_*.sdo"
-Wildcard "*" kan erstattes med en vilkårlig streng (må være et gyldig filnavn), f.eks lånesaksnummer eller annen relevant referanse for avsender.
+- Eventuelt følgebrev må følge konvensjonen: "coverletter_&ast;.[pdf|xml]"
+- Pantedokumentet må følge konvensjonen: "signedmortgagedeed_&ast;.sdo"
+Wildcard "&ast;" kan erstattes med en vilkårlig streng (må være et gyldig filnavn), f.eks lånesaksnummer eller annen relevant referanse for avsender.
 
 ### Implementasjonsbeskrivelse: ruting
 - mottakende systemleverandør søker blant alle sine kunders matrikkelenhet(er)
