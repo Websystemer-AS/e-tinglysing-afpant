@@ -300,7 +300,7 @@
     <xsl:param name="nummer" select="."/>
     <xsl:choose>
       <xsl:when test="string-length($nummer)=11">
-        <xsl:value-of select="'fnr. '"/>.
+        <xsl:value-of select="'fnr. '"/>
       </xsl:when>
       <xsl:when test="string-length($nummer)=6">
         <xsl:value-of select="'f.dato '"/>
