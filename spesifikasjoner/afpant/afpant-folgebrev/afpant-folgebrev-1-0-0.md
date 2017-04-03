@@ -17,3 +17,6 @@ XSD.EXE kan brukes for å autogenerere en POCO fra XSD (Se eksempel på https://gi
 Hvordan serialisere AFPANT.Folgebrev til XML med XSD+XSLT referanser: https://github.com/Websystemer-AS/e-tinglysing-afpant/blob/master/spesifikasjoner/afpant/afpant-folgebrev/afpant-folgebrev-example/Program.cs
 
 ![Eksempel på rendret følgebrev som html](https://github.com/Websystemer-AS/e-tinglysing-afpant/blob/master/spesifikasjoner/afpant/afpant-folgebrev/afpant-folgebrev/afpant-folgebrev-xslt/afpant-folgebrev-rendered-example.PNG)
+
+## Følgebrev XSD diagram
+![Diagram av følgebrev XSD](https://github.com/Websystemer-AS/e-tinglysing-afpant/blob/master/spesifikasjoner/afpant/afpant-folgebrev/afpant-folgebrev/afpant-folgebrev-xslt/afpant-folgebrev-1.0.0.jpg)
