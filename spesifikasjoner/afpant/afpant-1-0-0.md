@@ -14,7 +14,7 @@
 		</tr>
 		<tr>
 			<td><p>AFPANT (Altinn Prod)</p></td>
-			<td><p>--</p></td>
+			<td><p>(Prod-instans er bestilt 5.april, ETA +14dgr)</p></td>
 			<td><p>--</p></td>
 		</tr>				
 	</tbody>
