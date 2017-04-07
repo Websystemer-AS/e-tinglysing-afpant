@@ -17,7 +17,7 @@ Informasjon om innbetalingen (beløp, totalbeløp, mottakerkontonummer og kid) b
       <xs:element minOccurs="1" maxOccurs="1" name="MatrikkelEnheter" type="ArrayOfMatrikkelEnhet" />
       <xs:element minOccurs="1" maxOccurs="1" name="PantedokumentDetaljer" type="Pantedokument" />
       <xs:element minOccurs="1" maxOccurs="1" name="OverfoerselDetaljer" type="Overfoersel" />
-      <xs:element minOccurs="0" maxOccurs="unbounded" name="Forutsetninger" type="ArrayOfString">
+      <xs:element minOccurs="0" maxOccurs="1" name="Forutsetninger" type="ArrayOfString">
           <xs:annotation>
               <xs:documentation>Forutsetningene pantedokumentet og/eller innbetalingen overføres under.</xs:documentation>
           </xs:annotation>
