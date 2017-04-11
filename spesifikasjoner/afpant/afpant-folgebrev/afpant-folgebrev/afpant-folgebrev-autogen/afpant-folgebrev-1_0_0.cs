@@ -33,7 +33,7 @@ public partial class Folgebrev {
     
     private Overfoersel overfoerselDetaljerField;
     
-    private string[][] forutsetningerField;
+    private string[] forutsetningerField;
     
     private string annenFritekstField;
     
@@ -94,8 +94,7 @@ public partial class Folgebrev {
     }
     
     /// <remarks/>
-    [System.Xml.Serialization.XmlArrayItemAttribute(typeof(string))]
-    public string[][] Forutsetninger {
+    public string[] Forutsetninger {
         get {
             return this.forutsetningerField;
         }
@@ -330,6 +329,8 @@ public partial class Overfoersel {
     
     private double beloepField;
     
+    private System.DateTime beloepOverfortDatoField;
+    
     private double totalBeloepField;
     
     private string tilKontonummerField;
@@ -351,6 +352,16 @@ public partial class Overfoersel {
         }
         set {
             this.beloepField = value;
+        }
+    }
+    
+    /// <remarks/>
+    public System.DateTime BeloepOverfortDato {
+        get {
+            return this.beloepOverfortDatoField;
+        }
+        set {
+            this.beloepOverfortDatoField = value;
         }
     }
     

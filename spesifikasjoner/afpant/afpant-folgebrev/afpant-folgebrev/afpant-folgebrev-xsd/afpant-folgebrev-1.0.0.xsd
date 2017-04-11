@@ -153,6 +153,11 @@ Den sendes på papir i påvente av ytterligere standardiseringsarbeid / felles k
               <xs:documentation>Beløpet som overføres sammen med pantedokumentet (kan være mindre enn totalbeløpet)</xs:documentation>
           </xs:annotation>
       </xs:element>
+      <xs:element minOccurs="1" maxOccurs="1" name="BeloepOverfortDato" type="xs:date">
+          <xs:annotation>
+              <xs:documentation>En dato som indikerer når beløpet angitt i Beloep ble overført til mottakers kontonummer</xs:documentation>
+          </xs:annotation>
+      </xs:element>           
       <xs:element minOccurs="1" maxOccurs="1" name="TotalBeloep" type="xs:double">
           <xs:annotation>
               <xs:documentation>Totalt beløp som skal innbetales i henhold til kjøpekontrakt</xs:documentation>
@@ -174,7 +179,7 @@ Den sendes på papir i påvente av ytterligere standardiseringsarbeid / felles k
           <xs:annotation>
               <xs:documentation>En tekstlig beskrivelse av hva det overførte beløpet skal dekke</xs:documentation>
           </xs:annotation>
-      </xs:element>
+      </xs:element> 
       <xs:element minOccurs="1" maxOccurs="1" name="ProdusertDato" type="xs:dateTime">
           <xs:annotation>
               <xs:documentation>En timestamp som indikerer når følgebrevet ble produsert/overført</xs:documentation>

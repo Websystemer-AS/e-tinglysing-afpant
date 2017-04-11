@@ -178,6 +178,12 @@
                 </td>
               </tr>
               <tr>
+                <td>Overført dato</td>
+                <td>
+                  <xsl:value-of select="OverfoerselDetaljer/BeloepOverfortDato"/>
+                </td>
+              </tr>
+              <tr>
                 <td>Til konto</td>
                 <td>
                   <xsl:call-template name="formatAccountNumber">
