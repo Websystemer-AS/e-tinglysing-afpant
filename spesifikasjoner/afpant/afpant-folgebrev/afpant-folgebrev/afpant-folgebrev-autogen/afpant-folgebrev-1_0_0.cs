@@ -356,6 +356,7 @@ public partial class Overfoersel {
     }
     
     /// <remarks/>
+    [System.Xml.Serialization.XmlElementAttribute(DataType="date")]
     public System.DateTime BeloepOverfortDato {
         get {
             return this.beloepOverfortDatoField;

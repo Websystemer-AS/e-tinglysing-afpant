@@ -89,7 +89,7 @@
                 </td>
               </tr>
               <tr>
-                <td>Overført fra</td>
+                <td>Rettighetshavere</td>
                 <td>
                   <xsl:for-each select="Debitorer/RettighetsHaver">
                     <xsl:value-of select="Navn"/>
