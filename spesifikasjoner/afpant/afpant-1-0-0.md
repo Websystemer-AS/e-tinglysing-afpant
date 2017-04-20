@@ -14,16 +14,21 @@
 		</tr>
 		<tr>
 			<td><p>AFPANT (Altinn Prod)</p></td>
-			<td><p>(Prod-instans er bestilt 5.april, ETA +14dgr)</p></td>
-			<td><p>--</p></td>
-		</tr>				
+			<td><p>4752</p></td>
+			<td><p>1</p></td>
+		</tr>
 	</tbody>
 </table>
 
-**NB**: Kartverket må legge til rettigheter (READ+WRITE) for alle systemleverandører/datasentraler som skal koble seg direkte til denne tjenesten. Slike bestillinger må gjøres via Kartverket JIRA (http://jira.statkart.no:8080/).
+## AFPANT-tilgang for systemleverandører/datasentraler
+Kartverket må gi rettigheter (READ+WRITE) i tjenesteeierstyrt rettighetsregister for alle systemleverandører/datasentraler som skal koble seg direkte til denne tjenesten.
+Bestillinger av denne tilgangen må gjøres via Kartverket JIRA (http://jira.statkart.no:8080/).
 
-**NB 2**: Systemleverandører/datasentraler som skal utføre sending/mottak på vegne av *andre organisasjoner* (eks meglerforetak/bank) må registrere seg selv hos Kartverket, og skal bruke sitt eget organisasjonsnummer som "reportee" mot Altinn. Systemleverandører/datasentraler som opererer på vegne av andre må også hente meldinger for sitt *eget organisasjonsnummer* (for det er dit ACK/NACK meldinger fra mottakersystem sendes). 
-*Hver organisasjon* som en systemleverandør/datasentral opererer på vegne av (eks meglerforetak/bank) må logge på Altinn for å delegere rettigheter til sin systemleverandør/datasentral sin Altinn-systembruker for tjenesten AFPANT (READ+WRITE for AFPANT).
+## Delegering av roller fra egne kunder til systemleverandør/datasentral
+Systemleverandører/datasentraler som skal utføre sending/mottak på vegne av *andre organisasjoner* (eks meglerforetak/bank) må registrere seg selv hos Kartverket (ref ovenstående punkt), og skal bruke sitt *eget* organisasjonsnummer som "reportee" mot Altinn. Systemleverandører/datasentraler som opererer på vegne av andre må også hente meldinger for sitt *eget organisasjonsnummer* (for det er dit ACK/NACK meldinger fra mottakersystem sendes). 
+
+*Hver organisasjon/kunde* som en systemleverandør/datasentral opererer på vegne av (eks meglerforetak/bank) må logge på Altinn for å delegere rettigheter til sin gjeldende systemleverandør/datasentral sitt organisasjonsnummer for tjenesten *4752* (AFPANT).
+![Oppskrift for å delegere rollen 'Utfyller/Innsender' eller enkeltrettighet til systemleverandør/datasentral sitt organisasjonsnummer finnes her](https://www.altinn.no/no/Portalhjelp/Administrere-rettigheter-og-prosessteg/Gi-roller-og-rettigheter/)
 
  
 ## Sammendrag

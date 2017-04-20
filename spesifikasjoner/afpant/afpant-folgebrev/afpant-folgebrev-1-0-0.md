@@ -14,8 +14,8 @@ Referanse til XSD (xsi:noNamespaceSchemaLocation) og XSLT (<?xml-stylesheet />) 
 XSD og XSLT vil bli hostet på https://last-opp.pantedokumentet.no/AFPANT/
 
 ### Prod URI til XSD/XSLT
-XSD: http://last-opp.pantedokumentet.no/AFPANT/afpant-folgebrev-1.0.0.xsd
-XSLT (uten semver revision): http://last-opp.pantedokumentet.no/AFPANT/afpant-folgebrev-1.0.xslt
+- XSD: http://last-opp.pantedokumentet.no/AFPANT/afpant-folgebrev-1.0.0.xsd
+- XSLT (uten semver revision): http://last-opp.pantedokumentet.no/AFPANT/afpant-folgebrev-1.0.xslt
 
 ## Eksempel
 XSD.EXE kan brukes for å autogenerere en POCO fra XSD (Se eksempel på https://github.com/Websystemer-AS/e-tinglysing-afpant/blob/master/spesifikasjoner/afpant/afpant-folgebrev/afpant-folgebrev/generate-poco-from-xsd.bat)
