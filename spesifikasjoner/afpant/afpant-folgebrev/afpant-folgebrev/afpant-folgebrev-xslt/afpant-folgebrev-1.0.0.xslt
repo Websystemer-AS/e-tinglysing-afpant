@@ -51,12 +51,12 @@
               </tr>
               <tr>
                 <td>
-                  Matrikkelenhet<xsl:if test="count(MatrikkelEnheter/MatrikkelEnhet)&gt;1">
+                  Registerenhet<xsl:if test="count(Registerenheter/Registerenhet)&gt;1">
                     <xsl:text>er</xsl:text>
                   </xsl:if>
                 </td>
                 <td>
-                  <xsl:for-each select="MatrikkelEnheter/MatrikkelEnhet">
+                  <xsl:for-each select="Registerenheter/Registerenhet">
                     <xsl:choose>
                       <xsl:when test="string-length(Organisasjonsnummer) &gt; 0">
                         <!-- Borettsandel -->
@@ -73,10 +73,10 @@
                         <!-- Fast eiendom / eierseksjon -->
                         Knr. <xsl:value-of select="Kommunenummer"/>, gnr. <xsl:value-of select="Gardsnummer"/>, bnr. <xsl:value-of select="Bruksnummer"/>
                         <xsl:if test="string-length(Festenummer) &gt; 0 and Festenummer != '0'">
-                          , fnr. <xsl:value-of select="Festenummer"/>
+                          <xsl:text>, fnr. </xsl:text><xsl:value-of select="Festenummer"/>
                         </xsl:if>
                         <xsl:if test="string-length(Seksjonsnummer) &gt; 0 and Seksjonsnummer != '0'">
-                          , snr. <xsl:value-of select="Seksjonsnummer"/>
+                          <xsl:text>, snr. </xsl:text><xsl:value-of select="Seksjonsnummer"/>
                         </xsl:if>
                       </xsl:otherwise>
                     </xsl:choose>

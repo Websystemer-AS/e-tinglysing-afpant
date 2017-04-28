@@ -27,7 +27,7 @@ public partial class Folgebrev {
     
     private RettighetsHaver[] debitorerField;
     
-    private MatrikkelEnhet[] matrikkelEnheterField;
+    private Registerenhet[] registerenheterField;
     
     private Pantedokument pantedokumentDetaljerField;
     
@@ -64,12 +64,12 @@ public partial class Folgebrev {
     }
     
     /// <remarks/>
-    public MatrikkelEnhet[] MatrikkelEnheter {
+    public Registerenhet[] Registerenheter {
         get {
-            return this.matrikkelEnheterField;
+            return this.registerenheterField;
         }
         set {
-            this.matrikkelEnheterField = value;
+            this.registerenheterField = value;
         }
     }
     
@@ -555,7 +555,7 @@ public partial class Pantedokument {
 [System.SerializableAttribute()]
 [System.Diagnostics.DebuggerStepThroughAttribute()]
 [System.ComponentModel.DesignerCategoryAttribute("code")]
-public partial class MatrikkelEnhet {
+public partial class Registerenhet {
     
     private string kommuneNavnField;
     
@@ -577,7 +577,7 @@ public partial class MatrikkelEnhet {
     
     private string adresseField;
     
-    public MatrikkelEnhet() {
+    public Registerenhet() {
         this.festenummerField = "0";
         this.seksjonsnummerField = "0";
     }

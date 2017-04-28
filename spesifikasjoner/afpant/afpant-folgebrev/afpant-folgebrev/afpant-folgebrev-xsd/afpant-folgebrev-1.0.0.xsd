@@ -14,7 +14,7 @@ Informasjon om innbetalingen (beløp, totalbeløp, mottakerkontonummer og kid) b
           </xs:annotation>
       </xs:element>
       <xs:element minOccurs="1" maxOccurs="1" name="Debitorer" type="ArrayOfRettighetsHaver" />
-      <xs:element minOccurs="1" maxOccurs="1" name="MatrikkelEnheter" type="ArrayOfMatrikkelEnhet" />
+      <xs:element minOccurs="1" maxOccurs="1" name="Registerenheter" type="ArrayOfRegisterenhet" />
       <xs:element minOccurs="1" maxOccurs="1" name="PantedokumentDetaljer" type="Pantedokument" />
       <xs:element minOccurs="1" maxOccurs="1" name="OverfoerselDetaljer" type="Overfoersel" />
       <xs:element minOccurs="0" maxOccurs="1" name="Forutsetninger" type="ArrayOfString">
@@ -55,12 +55,12 @@ Den sendes på papir i påvente av ytterligere standardiseringsarbeid / felles k
       <xs:element minOccurs="1" maxOccurs="unbounded" name="RettighetsHaver" nillable="true" type="RettighetsHaver" />
     </xs:sequence>
   </xs:complexType>
-  <xs:complexType name="ArrayOfMatrikkelEnhet">
+  <xs:complexType name="ArrayOfRegisterenhet">
     <xs:sequence>
-      <xs:element minOccurs="1" maxOccurs="unbounded" name="MatrikkelEnhet" nillable="true" type="MatrikkelEnhet" />
+      <xs:element minOccurs="1" maxOccurs="unbounded" name="Registerenhet" nillable="true" type="Registerenhet" />
     </xs:sequence>
   </xs:complexType>
-  <xs:complexType name="MatrikkelEnhet">
+  <xs:complexType name="Registerenhet">
     <xs:annotation>
         <xs:documentation>Representerer enten fast eiendom (inkl feste eller seksjonsnummer) eller en borettsandel. </xs:documentation>
     </xs:annotation>

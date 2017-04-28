@@ -48,9 +48,9 @@ namespace afpant_folgebrev_example
                 }
             }.ToArray();
 
-            folgebrev.MatrikkelEnheter = new List<MatrikkelEnhet>()
+            folgebrev.Registerenheter = new List<Registerenhet>()
             {
-                new MatrikkelEnhet()
+                new Registerenhet()
                 {
                      KommuneNavn="Bergen",
                      Kommunenummer="1201",
