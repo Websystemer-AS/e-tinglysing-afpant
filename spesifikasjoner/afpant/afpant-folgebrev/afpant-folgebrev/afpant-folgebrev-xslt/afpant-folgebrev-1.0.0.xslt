@@ -19,17 +19,16 @@
 
           table {
           width: 100%;
+          text-align: left;
           }
-
+          
           table td {
           vertical-align: top;
           padding: 6px;
           vertical-align: top;
           border-top: 1px solid #ddd;
           }
-          table td text-nowrap {
-          white-space: nowrap;
-          }
+          
         </style>
       </head>
       <body>
