@@ -70,12 +70,13 @@ namespace afpant_folgebrev_example
             folgebrev.OverfoerselDetaljer = new Overfoersel()
             {
                 Beloep = 2100000,
-                BeloepOverfortDato = DateTime.Now.AddDays(-2).Date,                          
+                BeloepOverfortDato = DateTime.Now.AddDays(-2).Date,
                 TotalBeloep = 2500000,
                 BeloepGjelder = "dekning av kjøpesum for ovennevnte eiendom",
                 TilKontonummer = "65501100000",
                 KID = "10001000222111",
                 KreditorSaksnummer = "Lånesak 124-221/22",
+                MeglerSaksnummer = "117-00-1002 Lånegaten 15 B",
                 ProdusertDato = DateTime.Now
             };
 
@@ -111,11 +112,11 @@ Eller at forutsetning C, og så videre."
             //serialize to memory, append XSD + XSLT instructions, save to file
             using (var ms = new MemoryStream())
             {
-                var ser = new XmlSerializer(typeof(Folgebrev));                
+                var ser = new XmlSerializer(typeof(Folgebrev));
                 ser.Serialize(ms, folgebrev);
                 ms.Seek(0, SeekOrigin.Begin);
 
-                var xmlDoc = new XmlDocument();                
+                var xmlDoc = new XmlDocument();
                 xmlDoc.Load(ms);
 
                 // append XSD reference

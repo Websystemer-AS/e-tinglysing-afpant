@@ -104,7 +104,7 @@
                 <td>Pantedokument</td>
                 <td>
                   <xsl:call-template name="formatNumber">
-                    <xsl:with-param name="prefix" select="'Kr.'"/>
+                    <xsl:with-param name="prefix" select="'Kr. '"/>
                     <xsl:with-param name="numericValue" select="PantedokumentDetaljer/Beloep"/>
                   </xsl:call-template>
                 </td>
@@ -146,7 +146,7 @@
                               </td>
                               <td>
                                 <xsl:call-template name="formatNumber">
-                                  <xsl:with-param name="prefix" select="'Kr.'"/>
+                                  <xsl:with-param name="prefix" select="'Kr. '"/>
                                   <xsl:with-param name="numericValue" select="Beloep"/>
                                 </xsl:call-template>
                               </td>
@@ -165,12 +165,12 @@
                 <td>Overført beløp</td>
                 <td>
                   <xsl:call-template name="formatNumber">
-                    <xsl:with-param name="prefix" select="'Kr.'"/>
+                    <xsl:with-param name="prefix" select="'Kr. '"/>
                     <xsl:with-param name="numericValue" select="OverfoerselDetaljer/Beloep"/>
                   </xsl:call-template>
                   <xsl:text> (totalbeløp </xsl:text>
                   <xsl:call-template name="formatNumber">
-                    <xsl:with-param name="prefix" select="'Kr.'"/>
+                    <xsl:with-param name="prefix" select="'Kr. '"/>
                     <xsl:with-param name="numericValue" select="OverfoerselDetaljer/TotalBeloep"/>
                   </xsl:call-template>
                   <xsl:text>)</xsl:text>
@@ -196,21 +196,19 @@
                   <xsl:value-of select="OverfoerselDetaljer/KID"/>
                 </td>
               </tr>
-              <xsl:if test="string-length(OverfoerselDetaljer/KreditorSaksnummer) &gt; 0 or string-length(OverfoerselDetaljer/MeglerSaksnummer) &gt; 0">
+              <xsl:if test="string-length(OverfoerselDetaljer/MeglerSaksnummer) &gt; 0">
                 <tr>
-                  <td>Saksnummer/referanse</td>
+                  <td>Oppdragsnummer megler</td>
+                  <td>     
+                      <xsl:value-of select="OverfoerselDetaljer/MeglerSaksnummer"/>                    
+                  </td>
+                </tr>
+              </xsl:if>
+              <xsl:if test="string-length(OverfoerselDetaljer/KreditorSaksnummer) &gt; 0">
+                <tr>
+                  <td>Saksnummer kreditor</td>
                   <td>
-                    <xsl:if test="string-length(OverfoerselDetaljer/KreditorSaksnummer) &gt; 0">
                       <xsl:value-of select="OverfoerselDetaljer/KreditorSaksnummer"/>
-                      <xsl:text> (kreditors saksnummer)</xsl:text>
-                      <br/>
-                    </xsl:if>
-
-                    <xsl:if test="string-length(OverfoerselDetaljer/MeglerSaksnummer) &gt; 0">
-                      <xsl:value-of select="OverfoerselDetaljer/MeglerSaksnummer"/>
-                      <xsl:text> (meglers saksnummer)</xsl:text>
-                      <br/>
-                    </xsl:if>
                   </td>
                 </tr>
               </xsl:if>
