@@ -24,11 +24,18 @@
 Kartverket må gi rettigheter (READ+WRITE) i tjenesteeierstyrt rettighetsregister for alle systemleverandører/datasentraler som skal koble seg direkte til denne tjenesten.
 Bestillinger av denne tilgangen må gjøres via Kartverket JIRA (http://jira.statkart.no:8080/).
 
+## AFPANT-tilgang for eiendomsmeglerforetak/banker
+Kartverket må gi rettigheter (READ+WRITE) i tjenesteeierstyrt rettighetsregister for alle eiendomsmeglerforetak som skal motta forsendelser fra denne tjenesten, selv om forsendelsene skal hentes/administreres av tredjepart (systemleverandør/datasentral).
+Bestillinger av denne tilgangen må gjøres via tredjepartsleverandør eller direkte til Kartverket.
+
 ## Delegering av roller fra egne kunder til systemleverandør/datasentral
-Systemleverandører/datasentraler som skal utføre sending/mottak på vegne av *andre organisasjoner* (eks meglerforetak/bank) må registrere seg selv hos Kartverket (ref ovenstående punkt), og skal bruke sitt *eget* organisasjonsnummer som "reportee" mot Altinn. Systemleverandører/datasentraler som opererer på vegne av andre må også hente meldinger for sitt *eget organisasjonsnummer* (for det er dit ACK/NACK meldinger fra mottakersystem sendes). 
+Systemleverandører/datasentraler som skal utføre sending/mottak på vegne av *andre organisasjoner* (eks meglerforetak/bank) må registrere seg selv hos Kartverket (ref ovenstående punkt).
+Ved henting av forsendelser på vegne av egne kunder skal systemleverandør/datasentral bruke organisasjonsnummeret tilhørende kunden som "reportee" mot Altinn.
+Systemleverandører/datasentraler må også hente meldinger for sitt *eget organisasjonsnummer* (for det er dit ACK/NACK meldinger fra mottakersystem sendes). 
 
 *Hver organisasjon/kunde* som en systemleverandør/datasentral opererer på vegne av (eks meglerforetak/bank) må logge på Altinn for å delegere rettigheter til sin gjeldende systemleverandør/datasentral sitt organisasjonsnummer for tjenesten *4752* (AFPANT).
 Oppskrift for å delegere rollen 'Utfyller/Innsender' eller enkeltrettighet til systemleverandør/datasentral sitt organisasjonsnummer finnes her: https://www.altinn.no/no/Portalhjelp/Administrere-rettigheter-og-prosessteg/Gi-roller-og-rettigheter/
+*NB:* Delegering av denne rettigheten må utføres _etter_ at Kartverket har gitt tilgang til både systemleverandør/datasentral og kunden (meglerforetak/bank).
 
  
 ## Sammendrag
@@ -55,13 +62,14 @@ Wildcard "&ast;" kan erstattes med en vilkårlig streng (må være et gyldig filnav
 
 ### Implementasjonsbeskrivelse: ruting
 - mottakende systemleverandør søker blant alle sine kunders matrikkelenhet(er)
-- utvalget avgrenses til matrikkelenheter som tilhører meglersaker hvor organisasjonsnummeret til _enten_ meglerforetaket eller oppgjørsforetaket på meglersaken er lik organisasjonsnummeret pantedokumentet er sendt til
+- utvalget avgrenses til matrikkelenheter som tilhører meglersaker hvor organisasjonsnummeret til _enten_ meglerforetaket eller oppgjørsforetaket på meglersaken er lik organisasjonsnummeret pantedokumentet er sendt til ("reportee")
 - utvalget avgrenses til meglersaker hvor **alle debitorene i pantedokumentet også er registrert som kjøpere på meglersaken** (hvis det mangler fødselsnummer/orgnummer på kjøper(e) kan leverandør selv velge graden av fuzzy matching som skal tillates) 
 - dersom det er registrert flere kjøpere på meglersaken enn det finnes debitorer/signaturer i pantedokumentet skal mottakende system avvise forsendelsen med en SignedMortgageDeedProcessedMessage (NACK) hvor status = DebitorMismatch.
 
 ### Håndtering av feil
 - Den første feilen som oppstår stopper videre behandling av forsendelsen.
-- SignedMortgageDeedProcessedMessage (NACK) returneres og vil ha utfyllende beskrivelse i property statusDescription.
+- SignedMortgageDeedProcessedMessage (NACK) returneres og vil ha utfyllende beskrivelse i property statusDescription. 
+- SignedMortgageDeedProcessedMessage.statusDescription må være angitt på norsk.
 
 ## Avlesningskvittering
 Avsender-bank kan angi hvorvidt mottakende fagsystem skal returnere en avlesningskvittering, og man kan velge følgende metoder:
