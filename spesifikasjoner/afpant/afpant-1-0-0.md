@@ -19,6 +19,7 @@
 		</tr>
 	</tbody>
 </table>
+*NB:* ServiceCode for AFPANT er lik i Test og Prod.
 
 ## AFPANT-tilgang for systemleverandører/datasentraler
 Kartverket må gi rettigheter (READ+WRITE) i tjenesteeierstyrt rettighetsregister for alle systemleverandører/datasentraler som skal koble seg direkte til denne tjenesten.
