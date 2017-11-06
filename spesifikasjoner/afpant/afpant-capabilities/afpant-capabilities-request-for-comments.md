@@ -25,6 +25,11 @@ Alle deltakende aktører på AFPANT må dermed som absolutt minimum implementere
 			<td><p>Denne kan være en av følgende:</p><ul><li>CapabilityQuery</li></ul></td>
 		</tr>
 		<tr>
+			<td><p>messageGenerated</p></td>
+			<td><p>DateTime</p></td>
+			<td><p>Timestamp meldingen ble produsert hos avsender</p></td>
+		</tr>        
+		<tr>
 			<td><p>generatedBy</p></td>
 			<td><p>String</p></td>
 			<td><p>Optional: Identifikasjon på hvilken integrasjonspartner som forespør på vegne av organisasjonsnummeret.
@@ -50,7 +55,12 @@ Alle deltakende aktører på AFPANT må dermed som absolutt minimum implementere
 			<td><p>messageType</p></td>
 			<td><p>String</p></td>
 			<td><p>Denne kan være en av følgende:</p><ul><li>CapabilityResponse</li></ul></td>
-		</tr>	
+		</tr>
+		<tr>
+			<td><p>messageGenerated</p></td>
+			<td><p>DateTime</p></td>
+			<td><p>Timestamp meldingen ble produsert hos avsender</p></td>
+		</tr>           
 		<tr>
 			<td><p>supportedInboundMessageTypes</p></td>
 			<td><p>String[]</p></td>
