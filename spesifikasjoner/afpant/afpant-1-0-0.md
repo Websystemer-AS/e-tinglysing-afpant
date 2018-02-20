@@ -57,7 +57,7 @@ Hver enkelt systemleverandør som skal behandle forsendelser via AFPANT vil forsø
 For å rute forsendelsen blir pantedokumentet pakket ut fra SDO, og matrikkelenheter/debitorer ekstraheres.
 
 ### Krav til filnavn i ZIP-arkiv
-- Eventuelt følgebrev må følge konvensjonen: "coverletter_&ast;.[pdf|xml]"
+- Eventuelt følgebrev må følge konvensjonen: "coverletter_&ast;.[pdf|xml]". Filtype må samsvare med valgt verdi i 'coverLetter'.
 - Pantedokumentet må følge konvensjonen: "signedmortgagedeed_&ast;.sdo"
 Wildcard "&ast;" kan erstattes med en vilkårlig streng (må være et gyldig filnavn), f.eks lånesaksnummer eller annen relevant referanse for avsender.
 
@@ -121,7 +121,7 @@ Avsender-bank kan angi hvorvidt mottakende fagsystem skal returnere en avlesning
 			<td><p>coverLetter</p></td>
 			<td><p>String (enum)</p></td>
 			<td><p>Yes</p></td>
-			<td><p>Denne kan være en av følgende statuser:</p><ul><li>FileAttached</li><li>SentOutOfBand</li><li>Omitted</li></ul></td>
+			<td><p>Denne kan være en av følgende statuser:</p><ul><li>PdfAttached</li><li>XmlAttached</li><li>SentOutOfBand</li><li>Omitted</li></ul></td>
 		</tr>
 		<tr>
 			<td><p>payload</p></td>
