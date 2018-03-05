@@ -1,10 +1,14 @@
 # e-tinglysing-afpant-capabilities: REQUEST FOR COMMENTS
 ## Sammendrag
-Aktører som skal delta på AFPANT har behov for å:
+Aktører som skal benytte AFPANT har behov for å:
 * Vite om en annen aktør (mottaker-organisasjonsnummer) finnes på AFPANT
 * Vite hvilke meldingstyper en annen aktør støtter
 
 Meldingstype for CapabilityQuery vil også kunne fungere som en echo/ping-pong test for å sjekke at et gitt organisasjonsnummer er konfigurert korrekt på Altinn Formidlingstjenester (Kartverket har etablert tilgang for organisasjonsnummeret, organisasjonsnummeret har delegert tilgangsrettighet til systemleverandør).
+
+## Alternative løsninger
+Difi/Brreg arbeider med en offentlig-privat løsning som kunne vært aktuell å benytte til å løse ovenstående behov (arbeidstittel KoFuVi / digital samhandling offentlig-privat DSOP) - men dette prosjektet er ikke ferdigstilt enda (tentativ POC ultimo 2018 for de nåværende involverte offentlig/private aktører).
+Det er indikert at løsningen også vil kunne benyttes mellom private næringsaktører og capability / servicediscovery er en sentral komponent i den løsningen.
 
 ## Forslag
 Alle deltakende aktører på AFPANT må kunne besvare maskinelt om hvilke meldingstyper (inn- og utgående) som støttes.
