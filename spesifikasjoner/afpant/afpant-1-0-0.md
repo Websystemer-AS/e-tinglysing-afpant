@@ -43,6 +43,7 @@ Oppskrift for å delegere rollen 'Utfyller/Innsender' eller enkeltrettighet til s
 Bruker i avsender-bank må innhente hvilket organisasjonsnummer forsendelsen skal til (dette hentes normalt sett ut fra signert kopi av kjøpekontrakt, og er enten organisasjonsnummeret til eiendomsmeglerforetaket eller oppgjørsforetaket).
 
 Deretter produseres det et **ZIP**-arkiv som inneholder følgende filer:
+* En manifest.xml fil, som er standard for Altinn formidlingstjeneste og som innholder nøkkelinformasjon om avsender og type formidlingstjeneste. Denne er dokumentert i <a href="https://altinnett.brreg.no/Global/sbs/Implementasjonsguide%20for%20sluttbrukersystemer.pdf">Altinn's egen implementasjonsguide</a>.
 * Kjøpers pantedokument SDO (kun 1 pantedokument pr forsendelse)
 * Eventuelt følgebrev (PDF/XML) (med forutsetninger for oversendelse av pantedokument, evt innbetalingsinformasjon)
 * Dersom følgebrev produseres som XML må dokumentet validere i henhold til <a href="https://github.com/Websystemer-AS/e-tinglysing-afpant/blob/master/spesifikasjoner/afpant/afpant-folgebrev/afpant-folgebrev-1-0-0.md">afpant-folgebrev spesifikasjon</a>.
@@ -122,12 +123,6 @@ Avsender-bank kan angi hvorvidt mottakende fagsystem skal returnere en avlesning
 			<td><p>String (enum)</p></td>
 			<td><p>Yes</p></td>
 			<td><p>Denne kan være en av følgende statuser:</p><ul><li>PdfAttached</li><li>XmlAttached</li><li>SentOutOfBand</li><li>Omitted</li></ul></td>
-		</tr>
-		<tr>
-			<td><p>payload</p></td>
-			<td><p>String</p></td>
-			<td><p>Yes</p></td>
-			<td><p>Base64-encodet streng av ZIP-arkivet.</p></td>
 		</tr>
 	</tbody>
 </table>
