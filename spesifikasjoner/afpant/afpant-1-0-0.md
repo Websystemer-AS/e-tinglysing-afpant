@@ -40,7 +40,7 @@ Oppskrift for å delegere rollen 'Utfyller/Innsender' eller enkeltrettighet til s
 
  
 ## Sammendrag
-Bruker i avsender-bank må innhente hvilket organisasjonsnummer forsendelsen skal til (dette hentes normalt sett ut fra signert kopi av kjøpekontrakt, og er enten organisasjonsnummeret til eiendomsmeglerforetaket eller oppgjørsforetaket).
+Bruker i avsender-bank må innhente hvilket organisasjonsnummer forsendelsen skal til (dette hentes normalt sett ut fra side nr 1 i signert kopi av kjøpekontrakt, og er enten organisasjonsnummeret til eiendomsmeglerforetaket eller oppgjørsforetaket).
 
 Deretter produseres det et **ZIP**-arkiv som inneholder følgende filer:
 * Kjøpers pantedokument SDO (kun 1 pantedokument pr forsendelse)
@@ -49,14 +49,14 @@ Deretter produseres det et **ZIP**-arkiv som inneholder følgende filer:
 
 **NB**: Dersom mer enn 1 pantedokument fra samme lånesak skal tinglyses på samme matrikkelenhet må dette sendes som to separate forsendelser. For eksempel i tilfeller hvor det er to debitorer (låntakere) som ikke er ektefeller/samboere/registrerte partnere som skal ha likestilt prioritet, men separate pantedokumenter.
 
-Avsender-bank angir metadata-keys på Altinn-forsendelse (i manifestet) som indikerer om avsender-bank ønsker avlesingskvittering (maskinell og/eller pr email), og hvorvidt følgebrevet er inkludert i ZIP eller om det sendes out-of-band (f.eks via fax eller mail direkte til megler/oppgjør).
+Avsender-bank angir manifest metadata-keys ved initiering av Altinn-forsendelsen som indikerer om avsender-bank ønsker avlesingskvittering (maskinell og/eller pr email), og hvorvidt følgebrevet er inkludert i ZIP eller om det sendes out-of-band (f.eks via fax eller mail direkte til megler/oppgjør).
 Mottaker (systemleverandør) pakker ut ZIP og parser SDO for å trekke ut nøkkeldata (kreditor, debitor(er), matrikkelenhet(er)) som brukes for å rute forsendelsen til korrekt oppdrag hos korrekt megler/oppgjørsforetak.
 
 ## Validering og ruting hos mottakende system
 Hver enkelt systemleverandør som skal behandle forsendelser via AFPANT vil forsøke rute forsendelsen til korrekt meglersak/oppdrag i sine egne kundedatabaser.
 For å rute forsendelsen blir pantedokumentet pakket ut fra SDO, og matrikkelenheter/debitorer ekstraheres.
 
-### Krav til filnavn i ZIP-arkiv
+### Krav til filnavn i ZIP-arkiv<a name="zip-filnavn-krav"></a>
 - Eventuelt følgebrev må følge konvensjonen: "coverletter_&ast;.[pdf|xml]". Filtype må samsvare med valgt verdi i 'coverLetter'.
 - Pantedokumentet må følge konvensjonen: "signedmortgagedeed_&ast;.sdo"
 Wildcard "&ast;" kan erstattes med en vilkårlig streng (må være et gyldig filnavn), f.eks lånesaksnummer eller annen relevant referanse for avsender.
@@ -74,12 +74,18 @@ Wildcard "&ast;" kan erstattes med en vilkårlig streng (må være et gyldig filnav
 
 ## Avlesningskvittering
 Avsender-bank kan angi hvorvidt mottakende fagsystem skal returnere en avlesningskvittering, og man kan velge følgende metoder:
-* Avsender-bank angir i Altinn-metadata keys (senderName/senderEmail/senderPhone) kontaktinformasjonen til kontaktperson i bank og key (notificationMode) om de ønsker emailvarsling fra mottakende fagsystem ved suksessfull ruting og/eller feil.
-* Avsender-bank angir i Altinn-metadata key (notificationMode) enum verdi «AltinnNotification». Dette betyr at avsender-bank ønsker en strukturert ack/nack-melding fra mottakende fagsystem ved behandling. Ack/nack-meldingen kan da brukes av avsender-bank til å oppdatere state/workflow i eget (bank)fagsystem.
-* Avsender-bank angir i Altinn-metadata key (coverLetter) enum verdi som tilsier hvorvidt følgebrevet ligger som PDF/XML inne i ZIP eller om det sendes til megler/oppgjør på annet vis. Eventuell PDF/XML er ment til manuell behandling av oppgjørsansvarlig på lik linje med dagens papirbaserte følgebrev. 
+* Avsender-bank angir i manifest metadata keys (senderName/senderEmail/senderPhone) kontaktinformasjonen til kontaktperson i bank og key (notificationMode) om de ønsker emailvarsling fra mottakende fagsystem ved suksessfull ruting og/eller feil.
+* Avsender-bank angir i manifest metadata key (notificationMode) enum verdi «AltinnNotification». Dette betyr at avsender-bank ønsker en strukturert ack/nack-melding fra mottakende fagsystem ved behandling. Ack/nack-meldingen kan da brukes av avsender-bank til å oppdatere state/workflow i eget (bank)fagsystem.
+* Avsender-bank angir i manifest metadata key (coverLetter) enum verdi som tilsier hvorvidt følgebrevet ligger som PDF/XML inne i ZIP eller om det sendes til megler/oppgjør på annet vis. Eventuell PDF/XML er ment til manuell behandling av oppgjørsansvarlig på lik linje med dagens papirbaserte følgebrev. 
+
+## Altinn Formidlingstjeneste: Manifest
+Altinn ServiceEngine Broker støtter at avsender angir egendefinerte key/value pairs i Manifest.PropertyList (Manifest-objektet angis i ServiceEngine BrokerServiceInitiation.Manifest property). 
+
+Ved bruk av ServiceEngine webservices vil Altinn Formidlingstjenester automatisk legge til en fil med navn "manifest.xml" i ZIP-filen som avsender tilknytter forsendelsen.
+
+"Manifest.xml"-filen er av type BrokerServiceManifest.
 
 ## Forsendelse fra banksystem til meglersystem
-Altinn ServiceEngine Broker støtter at avsender angir egendefinerte key/value pairs i Manifest.PropertyList (Manifest angis i ServiceEngine BrokerServiceInitiation.Manifest property). 
 <table>
 	<thead>
 		<tr>
@@ -130,7 +136,8 @@ Altinn ServiceEngine Broker støtter at avsender angir egendefinerte key/value pa
 			<td><p>Denne kan være en av følgende statuser:</p><ul><li>PdfAttached</li><li>XmlAttached</li><li>SentOutOfBand</li><li>Omitted</li></ul></td>
 		</tr>
 		<tr><td colspan="4">Payload (ZIP-fil)</td></tr>
-		<tr><td colspan="4">En ZIP-fil som inneholder kjøpers pantedokument (SDO) + eventuelt følgebrev må tilknyttes forsendelsen. Det kan gjøres ved bruk av  BrokerServiceExternalBasicStreamedClient / StreamedPayloadBasicBE.</td></tr>
+		<tr><td colspan="4">En ZIP-fil som inneholder kjøpers pantedokument (SDO) + eventuelt følgebrev må tilknyttes forsendelsen. Filnavnene inne i ZIP-filen må følge [Krav til filnavn i ZIP-arkiv](#zip-filnavn-krav)
+		Tilknytting av ZIP-fil til forsendelsen kan gjøres ved bruk av  BrokerServiceExternalBasicStreamedClient / StreamedPayloadBasicBE.</td></tr>
 	</tbody>
 </table>
 
