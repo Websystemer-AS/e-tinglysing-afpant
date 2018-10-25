@@ -78,11 +78,17 @@ Avsender-bank kan angi hvorvidt mottakende fagsystem skal returnere en avlesning
 * Avsender-bank angir i Altinn-metadata key (notificationMode) enum verdi «AltinnNotification». Dette betyr at avsender-bank ønsker en strukturert ack/nack-melding fra mottakende fagsystem ved behandling. Ack/nack-meldingen kan da brukes av avsender-bank til å oppdatere state/workflow i eget (bank)fagsystem.
 * Avsender-bank angir i Altinn-metadata key (coverLetter) enum verdi som tilsier hvorvidt følgebrevet ligger som PDF/XML inne i ZIP eller om det sendes til megler/oppgjør på annet vis. Eventuell PDF/XML er ment til manuell behandling av oppgjørsansvarlig på lik linje med dagens papirbaserte følgebrev. 
 
-## Altinn Formidlingstjenester manifest metadata-keys ved innsending fra banksystem til meglersystem
+## Forsendelse fra banksystem til meglersystem
+Altinn ServiceEngine Broker støtter at avsender angir egendefinerte key/value pairs i Manifest.PropertyList (Manifest angis i ServiceEngine BrokerServiceInitiation.Manifest property). 
 <table>
+	<thead>
+		<tr>
+			<th colspan="4">Manifest metadata (BrokerServiceInitiation.Manifest.PropertyList)</th>
+		</tr>
+	</thead>
 	<tbody>
 		<tr>
-			<td><p><strong>Key</strong></p></td>
+			<td><p><strong>Manifest key</strong></p></td>
 			<td><p><strong>Type</strong></p></td>
 			<td><p><strong>Required</strong></p></td>
 			<td><p><strong>Beskrivelse</strong></p></td>
@@ -123,20 +129,22 @@ Avsender-bank kan angi hvorvidt mottakende fagsystem skal returnere en avlesning
 			<td><p>Yes</p></td>
 			<td><p>Denne kan være en av følgende statuser:</p><ul><li>PdfAttached</li><li>XmlAttached</li><li>SentOutOfBand</li><li>Omitted</li></ul></td>
 		</tr>
-		<tr>
-			<td><p>payload</p></td>
-			<td><p>String</p></td>
-			<td><p>Yes</p></td>
-			<td><p>Base64-encodet streng av ZIP-arkivet.</p></td>
-		</tr>
+		<tr><td colspan="4">Payload (ZIP-fil)</td></tr>
+		<tr><td colspan="4">En ZIP-fil som inneholder kjøpers pantedokument (SDO) + eventuelt følgebrev må tilknyttes forsendelsen. Det kan gjøres ved bruk av  BrokerServiceExternalBasicStreamedClient / StreamedPayloadBasicBE.</td></tr>
 	</tbody>
 </table>
 
-## Manifest metadata-keys ved retur av ACK/NACK notification fra fagsystem til bank (etter behandling av mottatt pantedokument):
+
+## Retur av ACK/NACK notification fra fagsystem til bank (etter behandling av mottatt pantedokument):
 <table>
+	<thead>
+		<tr>
+			<th colspan="4">Manifest metadata (BrokerServiceInitiation.Manifest.PropertyList)</th>
+		</tr>
+	</thead>
 	<tbody>
 		<tr>
-			<td><p><strong>Key</strong></p></td>
+			<td><p><strong>Manifest key</strong></p></td>
 			<td><p><strong>Type</strong></p></td>
 			<td><p><strong>Beskrivelse</strong></p></td>
 		</tr>
@@ -145,11 +153,8 @@ Avsender-bank kan angi hvorvidt mottakende fagsystem skal returnere en avlesning
 			<td><p>String</p></td>
 			<td><p>Denne kan være en av følgende:</p><ul><li>SignedMortgageDeedProcessed</li></ul></td>
 		</tr>
-		<tr>
-			<td><p>payload</p></td>
-			<td><p>String</p></td>
-			<td><p>Base64-encodet streng av SignedMortgageDeedProcessedMessage-objektet (serialisert som XML).</p></td>
-		</tr>
+		<tr><td colspan="3">Payload (ZIP-fil)</td></tr>
+		<tr><td colspan="3">En ZIP-fil som inneholder en XML fil av SignedMortgageDeedProcessedMessage-objektet.</td></tr>
 	</tbody>
 </table>
 
@@ -169,7 +174,7 @@ Avsender-bank kan angi hvorvidt mottakende fagsystem skal returnere en avlesning
 		<tr>
 			<td><p>status</p></td>
 			<td><p>String (enum)</p></td>
-			<td><p>Denne kan være en av følgende statuser:</p><ul><li>RoutedSuccessfully</li><li>UnknownCadastre (ukjent matrikkelenhet)</li><li>DebitorMismatch (fant matrikkelenhet, men antall kjøpere eller navn/id på kjøpere matcher ikke debitorer i pantedokumentet)</li><li>Rejected (sendt til et organisasjonsnummer som ikke lenger har et aktivt kundeforhold hos leverandøren - feil config i Altinn AFPANT, eller ugyldig forsendelse)</li></ul></td>
+			<td>Denne kan være en av følgende statuser:	<ul><li>RoutedSuccessfully</li><li>UnknownCadastre (ukjent matrikkelenhet)</li><li>DebitorMismatch (fant matrikkelenhet, men antall kjøpere eller navn/id på kjøpere matcher ikke debitorer i pantedokumentet)</li><li>Rejected (sendt til et organisasjonsnummer som ikke lenger har et aktivt kundeforhold hos leverandøren - feil config i Altinn AFPANT, eller ugyldig forsendelse)</li></ul> Kun status 'RoutedSuccessfully' er å anse som ACK (positive acknowledgement). Øvrige statuser er å anse som NACK (negative acknowledgement).</td>
 		</tr>
 		<tr>
 			<td><p>statusDescription</p></td>
