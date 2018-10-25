@@ -135,8 +135,8 @@ Ved bruk av ServiceEngine webservices vil Altinn Formidlingstjenester automatisk
 			<td><p>Yes</p></td>
 			<td><p>Denne kan være en av følgende statuser:</p><ul><li>PdfAttached</li><li>XmlAttached</li><li>SentOutOfBand</li><li>Omitted</li></ul></td>
 		</tr>
-		<tr><td colspan="4">Payload (ZIP-fil)</td></tr>
-		<tr><td colspan="4">En ZIP-fil som inneholder kjøpers pantedokument (SDO) + eventuelt følgebrev må tilknyttes forsendelsen. Filnavnene inne i ZIP-filen må følge [Krav til filnavn i ZIP-arkiv](#zip-filnavn-krav)
+		<tr><td colspan="4"><strong>Payload (ZIP-fil)</strong></td></tr>
+		<tr><td colspan="4">En ZIP-fil som inneholder kjøpers pantedokument (SDO) + eventuelt følgebrev må tilknyttes forsendelsen. Filnavnene inne i ZIP-filen må følge krav til filnavn i ZIP-arkiv.<br>
 		Tilknytting av ZIP-fil til forsendelsen kan gjøres ved bruk av  BrokerServiceExternalBasicStreamedClient / StreamedPayloadBasicBE.</td></tr>
 	</tbody>
 </table>
@@ -160,7 +160,7 @@ Ved bruk av ServiceEngine webservices vil Altinn Formidlingstjenester automatisk
 			<td><p>String</p></td>
 			<td><p>Denne kan være en av følgende:</p><ul><li>SignedMortgageDeedProcessed</li></ul></td>
 		</tr>
-		<tr><td colspan="3">Payload (ZIP-fil)</td></tr>
+		<tr><td colspan="3"><strong>Payload (ZIP-fil)</strong></td></tr>
 		<tr><td colspan="3">En ZIP-fil som inneholder en XML fil av SignedMortgageDeedProcessedMessage-objektet.</td></tr>
 	</tbody>
 </table>
